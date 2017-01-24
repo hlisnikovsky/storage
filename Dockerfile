@@ -1,12 +1,13 @@
-FROM alpine:3.2
+FROM ubuntu:14.04
 
-RUN mkdir -p /storage/db/oracle
-RUN mkdir /storage/db/psql
-RUN mkdir /storage/app/
-
+VOLUME /home
 VOLUME ["/storage/db/oracle"]
 VOLUME ["/storage/db/psql"]
 VOLUME ["/storage/app"]
 
 
-CMD [""]
+
+RUN groupadd -g 1000 storage && useradd -u 1000 -g storage storage
+
+CMD ["mkhomedir_helper", "storage"]
+
